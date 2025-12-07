@@ -1,0 +1,7 @@
+import AP.Common.GDT as apCommonGDT;
+
+[ChangeHistory]businessobject X {
+
+    [AlternativeKey][Label("ID")]element ID : ID;
+
+}
