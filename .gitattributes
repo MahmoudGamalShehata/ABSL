@@ -1,2 +1,69 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+import ABSL;
+import AP.Common.GDT;
+import AP.PlatinumEngineering;
+
+if(!this.XAttachmentFolder.IsSet()) { return; }
+if(!this.XAttachmentFolder.AttachmentExistsIndicator) {return; }
+
+var CSVColumnNames : XPEStringTab;
+CSVColumnNames.XPEString.Add("X ID");
+CSVColumnNames.XPEString.Add("X Name");
+CSVColumnNames.XPEString.Add("Country");
+CSVColumnNames.XPEString.Add("State");
+
+
+var docList = this.XAttachmentFolder.DocumentList;
+if(docList.Count() == 0) { return; }
+var doc = docList.GetFirst();
+var docContent = doc.FileContent.BinaryObjeX.content.ToString();
+var csv = CSV.ParseQuoted(docContent, "," , CSVColumnNames);
+
+var row = 1;
+var XData: elementsof X;
+var XYData: elementsof X.Y;
+
+var X;
+var XY;
+var OldX = "";
+
+if(csv.CSVStringTab.Count() > 0)
+{
+	foreach(var csvRow in csv.CSVStringTab)
+	{
+		var col = 1;
+		if(csvRow.XPEString.Count() > 0)
+		{
+			foreach(var csvColumn in csvRow.XPEString)
+			{
+				if(csvColumn.IsInitial()) { col = col + 1; continue; }
+				// Fill X Data.
+				else if(col == 1) { XData.XID = csvColumn; }
+				else if(col == 2) { XData.XName = csvColumn; }
+
+				// Fill X Line Items Data.
+				if(col == 3){ XYData.Country = csvColumn; }
+				else if(col == 4){ XYData.State.content = csvColumn; }
+		 
+				col = col + 1;
+			}
+		}
+
+		if(OldX != XData.XID)
+		{
+			OldX = XData.XID;
+			X = X.Create(XData);
+			XA = X.Y.Create(XYData);
+		}
+		else if(OldX == XData.XID)
+		{
+			XA = X.Y.Create(XAData);
+		}
+
+		XData.Clear();
+		XAData.Clear();
+
+		row = row + 1;
+	}
+}
+
+this.Delete();
