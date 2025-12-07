@@ -1,0 +1,6 @@
+import ABSL;
+
+if(this.ID.IsInitial()){
+	this.ID = NumberRange.DrawNumber("VehiclesAndEquipmentCategories").ToString();
+
+}
