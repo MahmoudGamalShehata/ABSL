@@ -1,0 +1,7 @@
+import AP.Common.GDT as apCommonGDT;
+
+[ChangeHistory]businessobject X raises MSG{
+
+		message MSG text "&1":LANGUAGEINDEPENDENT_EXTENDED_Text;
+
+}
