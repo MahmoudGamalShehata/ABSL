@@ -21,7 +21,6 @@ var row = 1;
 var LICreate: elementsof InventoryComparison.LastInventories;
 
 var LI;
-var OldLI = "";
 
 if(csv.CSVStringTab.Count() > 0)
 {
