@@ -1,0 +1,4 @@
+import ABSL;
+
+	raise MSG.Create("E","There is no service. Please add at least one.");
+	return false;
